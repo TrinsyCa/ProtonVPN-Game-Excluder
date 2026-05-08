@@ -1,0 +1,17 @@
+{
+  "name": "protonvpn-game-excluder",
+  "version": "1.0.0",
+  "description": "Automatically adds Steam games to Proton VPN Split Tunneling",
+  "main": "protonvpn-exclude-games.js",
+  "scripts": {
+    "start": "node protonvpn-exclude-games.js",
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "glob": "^10.3.10"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "postject": "^1.0.0-alpha.6"
+  }
+}

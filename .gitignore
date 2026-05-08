@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+_sea-bundle.cjs
+_sea-prep.blob
+_sea-config.json
+ProtonVPN-Game-Excluder.exe
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
