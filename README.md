@@ -14,7 +14,7 @@ When playing competitive games like *Counter-Strike 2*, *VALORANT*, or *League o
 ### How to Use:
 1. **Download:** Get the latest version of the tool [from this link](https://file.trinsy.ca/8151a3f7-c6cb-4cb2).
 2. **Close ProtonVPN:** Ensure ProtonVPN is completely closed (not running in the system tray).
-3. **Run the EXE:** Launch `ProtonVPN-Game-Excluder.exe`.
+3. **Run the EXE:** Launch `ProtonVPN Game Excluder.exe`.
 4. **Follow Prompts:** The tool will ask for permission to scan your Steam folder and update your settings.
 5. **Restart:** Once finished, open ProtonVPN and enjoy your low-ping gaming!
 
