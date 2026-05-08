@@ -356,6 +356,8 @@ async function main() {
                 } else {
                     await printDelayed(t.vpnOpenedError);
                 }
+
+                await new Promise(r => setTimeout(r, 2000));
                 
                 rl.close();
                 process.exit(0);
