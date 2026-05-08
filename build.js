@@ -2,7 +2,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const OUT_EXE = 'ProtonVPN-Game-Excluder.exe';
+const OUT_EXE = 'ProtonVPN Game Excluder.exe';
 const BUNDLE  = '_sea-bundle.cjs';
 const BLOB    = '_sea-prep.blob';
 const CONFIG  = '_sea-config.json';

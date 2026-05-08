@@ -188,20 +188,35 @@ async function fakeLoadingBar(durationMs = 1800, width = 30) {
 
 async function waitForProtonVpnUI(timeoutMs = 15000) {
     const startTime = Date.now();
-    // Start polling to see if ProtonVPN.Client has a MainWindowHandle > 0
     while (Date.now() - startTime < timeoutMs) {
         try {
-            execSync(
-                'powershell -NoProfile -NonInteractive -Command "if ((Get-Process ProtonVPN.Client -ErrorAction SilentlyContinue | Where-Object {$_.MainWindowHandle -ne 0}).Count -gt 0) { exit 0 } else { exit 1 }"',
-                { stdio: ['pipe', 'pipe', 'pipe'], timeout: 2000 }
-            );
-            return true; // Window handle found, UI is loaded
+            const result = execSync('tasklist /NH', {
+                encoding: 'utf8',
+                stdio: ['pipe', 'pipe', 'pipe'],
+                timeout: 5000
+            });
+            if (result.toLowerCase().includes('protonvpn.client')) {
+                // Uygulama arkaplanda çalışmaya başladıktan sonra tam olarak yüklenmesi (tray icon vs)
+                // için biraz süre tanıyoruz ki ikinci çağırma (öne getirme) komutunu reddetmesin.
+                await new Promise(r => setTimeout(r, 4000));
+                return true;
+            }
         } catch (e) {
-            // Not ready yet
+            // ignore
         }
         await new Promise(r => setTimeout(r, 1000));
     }
-    return false; // Timed out
+    return false;
+}
+
+function bringProtonVpnToFront() {
+    // Re-launching the executable forces the existing background/tray instance to the foreground
+    const vpnExe = findProtonVpnExe();
+    if (vpnExe) {
+        try {
+            spawn(vpnExe, [], { detached: true, stdio: 'ignore' }).unref();
+        } catch (e) {}
+    }
 }
 
 // ─── PRESS ANY KEY ────────────────────────────────────────────────────────────
@@ -350,8 +365,9 @@ async function main() {
                 
                 spawn(vpnExe, [], { detached: true, stdio: 'ignore' }).unref();
                 
-                const isLoaded = await waitForProtonVpnUI(5000);
+                const isLoaded = await waitForProtonVpnUI(15000);
                 if (isLoaded) {
+                    bringProtonVpnToFront();
                     await printDelayed(t.vpnOpenedSuccess);
                 } else {
                     await printDelayed(t.vpnOpenedError);
