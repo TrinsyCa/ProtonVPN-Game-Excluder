@@ -39,7 +39,8 @@ const STRINGS = {
         noNewGames: '\nOyun kütüphanesinden eklenecek yeni oyun bulunamadı. Liste zaten güncel.',
         reopenVpnPrompt: '\nProton VPN\'i şimdi açmak ister misiniz? (E) Evet / (H) Hayır: ',
         openingVpn: '\nProton VPN açılıyor...',
-        vpnOpenedSuccess: '\n✓ Proton VPN başarıyla açıldı.\n',
+        vpnOpenedSuccess: '\n\n\n🟢 Proton VPN başarıyla açıldı.\n',
+        vpnOpenedError: '\n⚠️ Proton VPN otomatik başlatılamadı, lütfen manuel olarak açın.\n',
         error: (msg) => `\n✗ Hata: ${msg}`,
         pressAnyKey: '\nÇıkmak için herhangi bir tuşa basınız...',
     },
@@ -75,7 +76,8 @@ const STRINGS = {
         noNewGames: '\nNo new games found to add. The list is already up to date.',
         reopenVpnPrompt: '\nWould you like to open Proton VPN now? (Y) Yes / (N) No: ',
         openingVpn: '\nOpening Proton VPN...',
-        vpnOpenedSuccess: '\n✓ Proton VPN successfully opened.\n',
+        vpnOpenedSuccess: '\n\n\n🟢 Proton VPN successfully opened.\n',
+        vpnOpenedError: '\n⚠️ Proton VPN could not be started automatically, please open it manually.\n',
         error: (msg) => `\n✗ Error: ${msg}`,
         pressAnyKey: '\nPress any key to exit...',
     }
@@ -344,13 +346,15 @@ async function main() {
             const reopenAnswer = (await rl.question(t.reopenVpnPrompt)).toLowerCase().trim();
             if (['y', 'yes', 'e', 'evet'].includes(reopenAnswer)) {
                 process.stdout.write(t.openingVpn);
-                await fakeLoadingBar(19000);
+                await fakeLoadingBar(5000);
                 
                 spawn(vpnExe, [], { detached: true, stdio: 'ignore' }).unref();
                 
-                const isLoaded = await waitForProtonVpnUI(20000);
+                const isLoaded = await waitForProtonVpnUI(5000);
                 if (isLoaded) {
                     await printDelayed(t.vpnOpenedSuccess);
+                } else {
+                    await printDelayed(t.vpnOpenedError);
                 }
                 
                 rl.close();
